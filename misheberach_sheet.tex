@@ -1,0 +1,293 @@
+\documentclass[a4paper, twoside, openany, parskip=half, 12pt]{article}
+
+
+
+\usepackage[top=.7in,bottom=.7in, inner=.625in, outer=.625in, marginparsep=.1in, headsep=16pt]{geometry}
+\setlength{\marginparwidth}{.5in}
+
+
+
+\usepackage{titlesec}
+
+\usepackage{draftwatermark}%confuses website for upsidedown printing
+	\SetWatermarkText{This text is upside down to confuse a computer}
+%	\SetWatermarkText{Draft}
+	\SetWatermarkScale{.1}%makes text size smaller
+	\SetWatermarkLightness{1}%makes text transparent
+	\SetWatermarkAngle{180}%rotates text upside down
+
+\usepackage{longtable}%lets tables go over a page break
+\usepackage{paracol}%parallel columns
+\usepackage{multirow}
+\usepackage{multicol}%multicolumn
+\usepackage[table]{xcolor}%colored tables
+\usepackage{mdframed}%frames and backgrounds
+\usepackage{wrapfig}%wrap text in minipage
+\usepackage{array}%for tables
+\usepackage{graphicx}%for adding jpegs
+\usepackage{afterpage}%for insterting blank pages
+\usepackage{marginnote}%doesn't work, want to use for sources
+\usepackage{hanging}%hanging paragraphs
+\usepackage{xunicode} 
+\usepackage{adforn}%for vignettes on the chapters and sections
+%more information: http://mirrors.concertpass.com/tex-archive/fonts/adforn/doc/fonts/adforn/adforn.pdf
+\usepackage{tabularx}
+\usepackage{libertine}
+%\usepackage{parskip} %Space between paragrphs
+
+
+\usepackage{polyglossia}
+\setdefaultlanguage{hebrew}
+\setotherlanguage{english}
+\usepackage{fontspec}
+\setmainfont[
+	Path=fonts/, 
+	BoldItalicFont=ShlomoLightBold, 
+	BoldFont=ShlomoBold, 
+	ItalicFont=ShlomosemiStam
+	]{Shlomo}
+	\setsansfont{FreeSans}
+
+\renewcommand{\baselinestretch}{1.0}
+
+\usepackage{bidi}
+\makeatletter
+\makeatother
+
+
+\makeatletter
+\@addtoreset{footnote}{chapter}
+\makeatother
+
+\usepackage{setspace}%line spacing
+
+\usepackage{sectsty}
+\allsectionsfont{\centering}
+
+\makeatletter%This shortens the space before and after chapter headings.
+\def\@makechapterhead#1{
+ %%%%\vspace*{50\p@}% %%% removed!
+ {\parindent \z@ \raggedleft \normalfont \centering
+ \ifnum \c@secnumdepth >\m@ne
+ \LARGE\bfseries \@chapapp\space \thechapter
+ \par\nobreak
+ \vskip 20\p@
+ \fi
+ \interlinepenalty\@M
+ \LARGE \bfseries #1\par\nobreak
+ \vskip 20\p@
+ }}
+\def\@makeschapterhead#1{%
+ %%%%%\vspace*{50\p@}% %%% removed!
+ {\parindent \z@ \raggedleft \centering
+ \normalfont
+ \interlinepenalty\@M
+ \LARGE \bfseries #1\par\nobreak
+ \vskip 20\p@
+ }}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%
+\newcommand\blankpage{%
+ \null
+ \thispagestyle{empty}%
+ \addtocounter{page}{-1}%
+ \newpage}
+
+%%%%This code indents the second line of the paragraph.
+\newlength{\saveparindent}\setlength{\saveparindent}{\parindent}
+\setlength{\parindent}{0pt}
+
+\newcommand{\updateeverypar}{%
+  \parshape 3
+    0pt \linewidth
+    \saveparindent \dimexpr\linewidth-\saveparindent\relax
+    0pt \linewidth}
+
+
+\makeatletter
+\patchcmd{\@xsect}{\ignorespaces}{\ignorespaces\everypar{\updateeverypar}}{}{}
+\makeatother
+\AtBeginDocument{\everypar{\updateeverypar}}
+%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%This helps with indentation
+\newlength\iiindent
+\setlength\iiindent{15pt}
+\newcommand\secindent{%
+ \parshape 3 0pt \linewidth 0pt\dimexpr\linewidth-\iiindent\relax 0pt \linewidth
+}
+\setlength\parindent{0pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%This centers the last line of the paragraph
+\leftskip=0pt plus-.5fil
+\rightskip=0pt plus.5fil
+\parfillskip=0pt plus1fil
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%This is a new environment that prevents vspace before and after centering
+\newenvironment{nscenter}
+ {\parskip=0pt\par\nopagebreak\centering}
+ {\par\noindent\ignorespacesafterend}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\paragraphfont{\large}
+
+%\titleformat*{\paragraph}{\Large\bfseries}
+
+\begin{document}
+
+\everypar{\secindent}
+\setcounter{secnumdepth}{-1}
+\setcounter{tocdepth}{1}
+\addtolength{\topskip}{0pt plus 10pt}
+
+%\fontdimen2\font=\origiwspc% (original) inter word space
+ \fontdimen3\font=0.1em% inter word stretch
+
+%\allsectionsfont{\centering}
+
+\setlength{\emergencystretch}{3em} %go over margin to avoid \sloppy
+
+
+
+
+
+\pagenumbering{gobble}
+
+
+\definecolor{sometimes}{gray}{0.87}
+
+\newcommand{\source}[1]{\noindent \begin{tiny} \marginpar{\textsf{(#1)}} \end{tiny}}
+
+\newcommand{\instruction}[1]{\noindent \begin{scriptsize} \textsf{#1} \end{scriptsize}}
+
+\newcommand{\firstword}[1]{\begin{large}\textbf{#1}\end{large}} 
+
+\newenvironment{sometimes}[1]{\begin{mdframed}[linecolor=sometimes, backgroundcolor=sometimes]
+\leftskip=0pt plus-.5fil
+\rightskip=0pt plus.5fil
+\parfillskip=0pt plus1fil
+}{\end{mdframed}} %for some reason "sometimes" deletes the first character. Hit "ENTER" before putting text into the environment.
+
+\newenvironment{kaddish}[1]{\begin{center}\begin{footnotesize}
+		\leftskip=0pt plus-.5fil
+		\rightskip=0pt plus.5fil
+		\parfillskip=0pt plus1fil
+	}{\end{footnotesize}\end{center}}
+
+
+\setstretch{1.5} %works with setspace package for line spacing.
+
+\section{\adforn{54} מדריך לגבאי \adforn{26}}
+
+\section*{מי שברך לעולה לתורה}
+\firstword{מִי שֶׁבֵּרַךְ}
+ אֲבוֹתֵֽינוּ אַבְרָהָם יִצְחָק וְיַעֲקֹב הוּא יְבָרֵךְ אֶת 
+\instruction{(פלוני בן פלוני)}
+  בַּעֲבוּר שֶׁעָלָה לִכְבוֹד הַמָּקוֹם,  וְלִכְבוֹד הַתּוֹרָה, 
+\fcolorbox{sometimes}{sometimes}{
+וְלִכְבוֹד הָשַּׁבָּת,
+}
+\fcolorbox{sometimes}{sometimes}{
+וְלִכְבוֹד הָרֶגֶל,
+}
+\fcolorbox{sometimes}{sometimes}{
+וְלִכְבוֹד יוׂם הַדִין,
+}
+ בִּשְׂכַר זֶה הַקָּדוֹשׁ בָּרוּךְ הוּא יִשְׁמְרֵֽהוּ וְיַצִּילֵֽהוּ מִכָּל צָרָה וְצוּקָה
+וּמִכָּל נֶֽגַע וּמַחֲלָה,
+  וְיִשְׁלַח בְּרָכָה וְהַצְלָחָה בְּכָל מַעֲשֵׂה יָדָיו 
+ \fcolorbox{sometimes}{sometimes}{
+ \instruction{ביומים נוראים}:
+וְיִכְתְּבֵהוּ וְיַחְתְּֿמֵֽהוּ לְחַיִים טוׂבִים בְּזֶה יוׂם הַדִין
+}
+    עִם כָּל יִשְׂרָאֵל אֶחָיו: וְנֹאמַר אָמֵן:\\
+
+\section*{מי שברך לאחרים}
+\firstword{מִי שֶׁבֵּרַךְ}
+ אֲבוֹתֵינוּ אַבְרָהָם יִצְחָק וְיַעֲקֹב הוּא יְבָרֵךְ אֶת (מוׂרֵנוּ הַרב בָּרוּךְ בֶּן מוׄשֶׁה דוׄב) בַּעֲבוּר  שְׁ
+\instruction{(פלוני בן פלוני)}
+  יִתֵּן 
+  \instruction{(כמות התרומה)}
+   בַּעֲבוּרָם. בִּשְׂכַר זֶה הַקָּדוֹשׁ בָּרוּךְ הוּא יִשְׁמְֿרֵם וְיַצִּילֵם מִכָּל צָרָה וְצוּקָה וּמִכָּל נֶגַע וּמַחֲלָה,\\
+\fcolorbox{sometimes}{sometimes}{
+\instruction{ברגלים}:
+וְיִזְכּוּ לָעֳלוׂת לְרֶֽגֶל 
+ }
+ \fcolorbox{sometimes}{sometimes}{
+ \instruction{ביומים נוראים}:
+וְיִכְתְּבֵהוּ וְיַחְתְּֿמֵֽהוּ לְחַיִים טוׂבִים בְּזֶה יוׂם הַדִין
+} 
+  וְיִשְׁלַח בְּרָכָה וְהַצְלָחָה בְּכָל מַעֲשֵׂה יְדֵיהֶם עִם כָּל יִשְׂרָאֵל אֶחֵיהֶם וְנֹאמַר אָמֵן:\\
+
+\section*{מי שברך לחולים}
+\firstword{מִי שֶׁבֵּרַךְ}
+ אֲבוֹתֵינוּ אַבְרָהָם יִצְחָק וְיַעֲקֹב מֹשֶׁה וְאַהֲרֹן דָּוִד וּשְׁלֹמֹה הוּא יְבָרֵךְ וִירַפֵּא אֶת הַחוׂלִים 
+\instruction{(פלוני בן פלונית ...)},
+בּעֲבוּר שְׁכָּל הַקָּהָל מִתְפַּלְֿלִים בַּעֲבוּרָם,  בִּשְׂכַר זֶה
+ הַקָּדוֹשׁ בָּרוּךְ הוּא יִמָּלֵּא רַחֲמִים עָלֵיהֶם לְהַחֲלִימַם וּלְרַפְּאֹתַם וּלְהַחֲזִיקַם וּלְהַחֲיוֹתַם, וְיִשְׁלַח לְהֶם מְהֵרָה רְפוּאָה שְׁלֵמָה מִן הַשָּׁמַיִם לְרַמַ"ח אֵבָרֵיהֶם וּשְׁסָ"ה גִּידֵיהֶם בְּתוֹךְ שְׁאָר חוֹלֵי יִשְׂרָאֵל, רְפוּאַת הַנֶּפֶשׁ וּרְפוּאַת הַגּוּף,
+ \fcolorbox{sometimes}{sometimes}{
+שַׁבָּת [וְיוׂם טוׂב] הִיא מִלִזְעׂק,
+}
+  הַשְׁתָּא בַּעֲגָלָא וּבִזְמַן קָרִיב. וְנֹאמַר אָמֵן:\\
+
+\section*{מי שברך להגבהת ולגלילת התורה}
+\firstword{מִי שֶׁבֵּרַךְ}
+ אֲבוֹתֵֽינוּ אַבְרָהָם יִצְחָק וְיַעֲקֹב הוּא יְבָרֵךְ אֶת 
+ \instruction{(פלוני בן פלוני)}
+  בַּעֲבוּר שֶׁעָלָה לִהַגְּבָּהַת הַתּוׂרָה, וֽאֶת 
+  \instruction{(פלוני בן פלוני)}
+   בַּעֲבוּר שֶׁעָלָה לִגְלִילַת הַתּוׂרָה
+ בִּשְׂכַר זֶה הַקָּדוֹשׁ בָּרוּךְ הוּא יִשְׁמְרֵם וְיַצִּילֵם מִכָּל צָרָה וְצוּקָה וּמִכָּל נֶֽגַע וּמַחֲלָה,\\
+\fcolorbox{sometimes}{sometimes}{
+\instruction{ברגלים}:
+וְיִזְכּוּ לָעֳלוׂת לְרֶֽגֶל 
+ }
+ \fcolorbox{sometimes}{sometimes}{
+ \instruction{ביומים נוראים}:
+וְיִכְתְּבֵהוּ וְיַחְתְּֿמֵֽהוּ לְחַיִים טוׂבִים בְּזֶה יוׂם הַדִין}\\
+וְיִשְׁלַח בְּרָכָה וְהַצְלָחָה בְּכָל מַעֲשֵׂה יָדֵיהֶם
+    עִם כָּל יִשְׂרָאֵל אֶחֵיהָם: וְנֹאמַר אָמֵן:
+    
+\clearpage
+
+\section*{מי שברך ליולדת בן}
+\firstword{מִי שֶׁבֵּרַךְ }
+אֲבוֹתֵֽינוּ אַבְרָהָם יִצְחָק וְיַעֲקֹב הוּא יְבָרֵךְ אֶת הָאִשָׁה הַיוֹלֶֽדֶת 
+\instruction{(פלוני בן פלוני)}
+ עִם בְּנָהּ הַנוֹלָד בְּמַזָל טוֹב [בַּעֲבוּר שֶׁבַּעֲלָהּ יִתֵּן ... בַּעֲדָם] בִּשְׂכַר זֶה הַקָדוֹשׁ בָּרוּךְ הוּא יְהִי בְּעֶזְרָם וְיִשְׁמְֿרֵם וִיזַכֶּה אֶת הָאֵם לְגַדֵל אֶת בְּנָהּ בַּטוֹב וּבַנְּֿעִימִים וּלְהַדְרִיכוֹ בְּאֹֽרַח מִישׁוֹר לַתּוֹרָה לְחֻפָּה וּלְמַעֲשִׂים טוֹבִים. וְנֹאמַר אָמֵן:\\
+
+\section*{מי שבירך ליולדת בת}
+\firstword{מִי שֶׁבֵּרַךְ }
+ אֲבוֹתֵֽינוּ אַבְרָהָם יִצְחָק וְיַעֲקֹב הוּא יְבָרֵךְ אֶת הָאִשָׁה הַיוֹלֶֽדֶת 
+\instruction{(פלונית בת פלונית)}
+ עִם בִּתָּה הַנוֹלֶֽדָה לָה בְּמַזָל טוֹב,
+בעבור שבעלה עלה לתורה. בִּשְׂכַר זֶה הַקָדוֹשׁ בָּרוּךְ הוּא ימלא רחמים עליה, לְהַחֲלִימָה וּלְרַפְּאֹתָה וּלְהַחֲזִיקָה וּלְהַחֲיוֹתָה, וְיִשְׁלַח לָה מְהֵרָה רְפוּאָה שְׁלֵמָה מִן הַשָּׁמַיִם לכל אֵבָרֵיהָ ולכל גִּידֵיהָ בְּתוֹךְ שְׁאָר חוֹלֵי יִשְׂרָאֵל, רְפוּאַת הַנֶּפֶשׁ וּרְפוּאַת הַגּוּף,   הַשְׁתָּא בַּעֲגָלָא וּבִזְמַן קָרִיב. ואת בִּתָּה הַנוֹלֶֽדָה בְּמַזָל טוֹב לארך ימים ושנים
+  וְיִקָרֵא שְׁמָהּ בְּיִשְׂרָאֵל 
+ \instruction{(פלונית בת פלוני)}
+   וִיזַכּוּ אֶת אָבִיהָ וְאִמֶהָ לְגַדְלָה לְמִצְוֹת לְחֻפָּה וּלְמַעֲשִׂים טוֹבִים. וְנֹאמַר אָמֵן:\\
+
+\section*{מי שבירך לבר מצוה}
+\firstword{מִי שֶׁבֵּרַךְ }
+אֲבוֹתֵֽינוּ אַבְרָהָם יִצְחָק וְיַעֲקֹב הוּא יְבָרֵךְ אֶת 
+\instruction{(פלוני בן פלוני)}
+ שֶׁהִגִֽיעוּ יָמָיו לִהְיוֹת בַּר מִצְוָה וְעָלָה הַיוֹם לַתּוֹרָה בַּפַּֽעַם הָרִאשׁוֹנָה לָתֵת שֶֽׁבַח וְהוֹדָאָה לְהַשֵׁם יִתְבָּרַךְ עַל כָּל הַטוֹבָה אֲשֶׁר עָשָׂה לוֹ (וְנָדַר...) בִּשְׂכַר זֶה הַקָדוֹשׁ בָּרוּךְ הוּא יִשְׁמְרֵֽהוּ וִיחַיֵֽהוּ וִיכוֹנֵן אֶת לִבּוֹ לִהְיוֹת שָׁלֵם עִם יְיָ וְלָלֶֽכֶת בִּדְרָכָיו וְלִשְׁמֹר מִצְוֹתָיו כָּל הַיָמִים וְנֹאמַר אָמֵן:\\
+
+\vfill
+
+
+%\begin{english}
+
+\includegraphics[scale=1]{cc.png}\\
+Wolf Aaron
+%This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License. 
+
+%\end{english}
+\end{document}

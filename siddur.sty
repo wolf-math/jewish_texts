@@ -1,0 +1,298 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{siddur}
+  [2019/12/121 v0.01 LaTeX package for siddur]
+
+\usepackage{fancyhdr}
+	\pagestyle{fancy}
+	\fancyhf{}
+	\fancyhead[RE]{\footnotesize\thepage}
+	\fancyhead[LO]{\footnotesize\thepage}
+	\fancyhead[C]{\footnotesize\leftmark}
+	\fancypagestyle{plain}{%
+		 \fancyhf{}%
+		\fancyhead[RE]{\footnotesize\thepage}
+		\fancyhead[LO]{\footnotesize\thepage}
+		%\fancyhead[C]{\footnotesize\leftmark}
+		% \renewcommand{\headrulewidth}{0.4pt}% Line at the header 
+		
+	}
+	
+\RequirePackage{longtable}				%lets tables go over a page break
+\RequirePackage{paracol}					%parallel columns
+\RequirePackage{multirow}
+\RequirePackage{multicol}				%multicolumn
+\RequirePackage[table]{xcolor}			%colored tables
+\RequirePackage{pbox}					%paragraph box 
+\RequirePackage{wrapfig}					%wraps text around pbox
+%\RequirePackage{mdframed}				%frames and backgrounds
+\RequirePackage{array}					%for tables
+\RequirePackage{graphicx}				%for adding jpegs
+\RequirePackage{afterpage}				%for insterting blank pages
+\RequirePackage{morefloats}
+\RequirePackage{marginfix}
+\RequirePackage{xunicode} 				%UTF-8
+\RequirePackage{adforn}					%for vignettes on the chapters and sections
+									%more information: http://mirrors.concertpass.com/tex-archive/fonts/adforn/doc/fonts/adforn/adforn.pdf
+\RequirePackage{tikz}
+\usetikzlibrary{decorations.text}
+%\RequirePackage{tabularx}
+%\RequirePackage{tabulary}
+\RequirePackage{ragged2e}				%text justification
+\RequirePackage{libertine}
+\RequirePackage{setspace}				%line spacing
+\RequirePackage{sectsty}
+\RequirePackage[bottom]{footmisc}		%keeps footnotes at the bottom of the page. Doesn't always work.
+\RequirePackage{scrextend}
+\RequirePackage[all]{nowidow}
+\allsectionsfont{\centering}
+
+\RequirePackage{titlesec}
+\titlespacing*{\section}{0pt}{-0.1em}{-0.1em}
+%\titlespacing*{\chapter}{0pt}{-50pt}{0.1em}
+\titleformat
+	{\chapter} % command
+	[display] % shape
+	{\bfseries\Large\itshape} % format
+	{Story No. \ \thechapter} % label
+	{0.5ex} % sep
+	{
+    	\adforn{47}
+	} % before-code
+	[
+		\adforn{19}
+	] % after-code
+
+
+% RTL typing
+\RequirePackage{polyglossia}
+\setdefaultlanguage[numerals=Hebrew]{hebrew}
+\setotherlanguage{english}
+
+\setmainfont[
+	Path=fonts/, 
+	BoldItalicFont=ShlomoLightBold, 
+	BoldFont=ShlomoBold, 
+	ItalicFont=ShlomosemiStam
+	]{Shlomo}
+	\setsansfont{FreeSans}
+
+\RequirePackage{bidi}
+\makeatletter
+\makeatother
+
+\makeatletter
+\@addtoreset{footnote}{chapter}
+\makeatother
+
+\makeatletter
+\def\@makechapterhead#1{%
+  \vspace*{-30\p@}
+  {\parindent \z@ \raggedright \normalfont \centering
+    \ifnum \c@secnumdepth >\m@ne
+        \LARGE\bfseries \@chapapp\space \thechapter
+        \par\nobreak
+  %%%%  \vskip 20\p@
+    \fi
+    \interlinepenalty\@M
+    \LARGE \bfseries #1\par\nobreak
+  %%%%  \vskip 40\p@% %%% removed!
+  }}
+\def\@makeschapterhead#1{%
+  %%%%%\vspace*{50\p@}% %%% removed!
+  {\parindent \z@ \raggedright
+    \normalfont
+    \interlinepenalty\@M
+    \LARGE \bfseries  #1\par\nobreak
+  %%%%%  \vskip 40\p@
+  }}
+\makeatother
+%%%%%%__________----------__________%%%%%
+
+
+%%%%%__________-For adding blank pages-__________%%%%%
+\newcommand\blankpage{%
+ \null
+ \thispagestyle{empty}%
+ \addtocounter{page}{-1}%
+ \newpage}
+
+%%%%%__________--Helps with indentation--__________%%%%%
+\newlength\iiindent
+\setlength\iiindent{0pt}
+\newcommand\secindent{%
+ \parshape 3 0pt \linewidth 0pt\dimexpr\linewidth-\iiindent\relax 0pt \linewidth
+}
+\setlength\parindent{10pt}
+
+
+
+%%%%%__________-Center last line of paragraph-__________%%%%%
+\newcommand{\centerlast}{
+\leftskip=0pt plus-.5fil
+\rightskip=0pt plus.5fil
+\parfillskip=0pt plus1fil
+}
+
+
+%%%%%_____-removes vspace before and after centering-_____%%%%%
+\newenvironment{nscenter}
+ {\parskip=0pt\par\nopagebreak\centering}
+ {\par\noindent\ignorespacesafterend}
+%%%%%__________-nop vspace with flushright-__________%%%%%
+\newenvironment{nsright}
+ {\parskip=0pt\par\nopagebreak\flushright}
+ {\par\noindent\ignorespacesafterend}
+%%%%%__________-no vspace with flushleft-__________%%%%%
+\newenvironment{nslongtable}
+ {\parskip=0pt\par\nopagebreak\longtable}
+ {\par\noindent\ignorespacesafterend}
+
+\paragraphfont{\large}
+
+\pagenumbering{roman}
+%\everypar{\secindent}
+\setcounter{secnumdepth}{-1}
+\setcounter{tocdepth}{1}
+%\addtolength{\topskip}{0pt plus 10pt}
+
+%\fontdimen2\font=\origiwspc					% (original) inter word space
+\fontdimen3\font=0.1em							% inter word stretch
+
+\setlength{\emergencystretch}{3em} 				%stretch length between words
+
+\renewcommand{\footnoterule}{%
+  \kern -3pt
+  \hrule width \textwidth height 1pt
+  \kern 2pt
+}
+
+\newcommand{\sepline}{\vspace{-.5\baselineskip}\rule[.7ex]{1.3in}{1pt}\vspace{-.5\baselineskip}}
+
+\newcommand{\nextpage}{\clearpage \vspace{-1\baselineskip}}
+
+\newcommand{\source}[1]{%
+    \ifthispageodd{%
+        \marginpar{\raggedleft\tiny \textsf{#1}}}{%
+        \marginpar{\raggedright\tiny \textsf{#1}}}%
+    }
+
+\newcommand{\mdsource}[1]{
+	\begin{tiny}
+		\textsf{(#1)}
+	\end{tiny}
+	}
+
+\newcommand{\instruction}[1]{\begin{center}\begin{scriptsize} \textsf{#1} \end{scriptsize}\end{center}}
+\newcommand{\inlineinstruction}[1]{\begin{scriptsize} \textsf{#1} \end{scriptsize}}
+
+\newenvironment{instructionpar}
+	{\begin{scriptsize}\begin{textsf}}
+	{\end{textsf}\end{scriptsize}}
+
+
+
+\newcommand{\aliyah}[1]{\begin{scriptsize} \textsf{(\textbf{#1})} \end{scriptsize}}
+\newcommand{\firstword}[1]{\begin{large}\textbf{#1}\end{large}} 
+\newcommand{\ssubsection}[1]{\firstword{#1}}
+
+\newenvironment{sometimes}[1]{\vspace{-.5\baselineskip}\rule[-0.5ex]{3in}{1pt}\\ \begin{small}}{\end{small}\rule[3ex]{3in}{1pt}
+\vspace{-.75\baselineskip}
+}
+
+\newenvironment{narrow}{
+	\begin{quote}
+		\centerlast
+	}{
+	\end{quote}}
+
+\newenvironment{kaddish}[1]{
+	\begin{footnotesize}
+		\centerlast
+	}{
+	
+	\end{footnotesize}}
+
+\newcommand{\halfkaddish}{\begin{kaddish}
+
+\firstword{יִתְגַּדַּל} 
+וְיִתְקַדַּשׁ שְׁמֵיהּ רַבָּא בְּעָלְֿמָא דִּבְרָא כִרְעוּתֵהּ וְיַמְלִיךְ מַלְכוּתֵהּ בְּחַיֵּיכוֹן וּבְיוֹמֵיכוֹן וּבְחַיֵּי דְכָל־בֵּית־יִשְׂרָאֵל בַּעֲגָלָא וּבִזְמַן קָרִיב - וְאִמְרוּ 
+\textbf{אָמֵן}׃
+\textbf{יְהֵא שְׁמֵיהּ רַבָּא מְבָרַךְ לְעָלַם וּלְעָלְֿמֵי עָלְֿמַיָּא}
+ יִתְבָּרַךְ וְיִשְׁתַּבַּח וְיִתְפָּאַר וְיִתְרוֹמַם וְיִתְנַשֵּׂא וְיִתְהַדַּר וְיִתְעַלֶּה וְיִתְהַלַּל שְׁמֵיהּ דְּקֻדְשָׁא 
+\textbf{בְּרִיךְ הוּא}
+ ׃ לְעֵֽלָּא מִכָּל־בִּרְכָתָא וְשִׁירָתָא תֻּשְׁבְּֿחָתָא וְנֶחָמָתָא דַּאֲמִירָן בְּעָלְֿמָא וְאִמְרוּ אָמֵן׃
+\end{kaddish}}
+
+
+\newcommand{\fullkaddish}{\begin{kaddish}
+
+\begin{scriptsize}
+וְעַתָּ֕ה
+\source{במידבר יד}%
+ יִגְדַּל־נָ֖א כֹּ֣חַ אֲדֹנָ֑י כַּאֲשֶׁ֥ר דִּבַּ֖רְתָּ לֵאמֹֽר׃\\
+ זְכֹר־רַחֲמֶ֣יךָ
+ \source{תהלים כה}%
+  יְ֖יָ וַחֲסָדֶ֑יךָ כִּ֖י מֵעוֹלָ֣ם הֵֽמָּה׃\\
+\end{scriptsize}
+\firstword{יִתְגַּדַּל}
+ וְיִתְקַדַּשׁ שְׁמֵיהּ רַבָּא בְּעָלְֿמָא דִּבְרָא כִרְעוּתֵהּ וְיַמְלִיךְ מַלְכוּתֵהּ בְּחַיֵּיכוֹן וּבְיוֹמֵיכוֹן וּבְחַיֵּי דְכָל בֵּית יִשְׂרָאֵל בַּעֲגָלָא וּבִזְמַן קָרִיב׃ וְאִמְרוּ אָמֵן׃
+\textbf{יְהֵא שְׁמֵיהּ רַבָּא מְבָרַךְ לְעָלַם וּלְעָלְֿמֵי עָלְֿמַיָּא} 
+ יִתְבָּרַךְ וְיִשְׁתַּבַּח וְיִתְפָּאַר וְיִתְרוֹמַם וְיִתְנַשֵּׂא וְיִתְהַדַּר וְיִתְעַלֶּה וְיִתְהַלַּל שְׁמֵיהּ דְּקֻדְשָׁא
+\textbf{בְּרִיךְ הוּא}׃
+  לְעֵֽלָּא מִכָּל בִּרְכָתָא וְשִׁירָתָא תֻּשְׁבְּֿחָתָא וְנֶחָמָתָא דַּאֲמִירָן בְּעָלְֿמָא׃ וְאִמְרוּ אָמֵן׃\\
+(\kahal
+\begin{footnotesize} 
+קַבֵּל בְּרַחֲמִים וּבְרָצוֹן אֶת תְּפִלָּתֵֽינוּ׃)\\
+\end{footnotesize}
+תִּתְקַבַּל צְלוֹתְֿהוֹן וּבָעוּתְֿהוֹן דְּכָל יִשְׂרָאֵל קֳדָם אֲבוּהוֹן דִּי בִשְׁמַיָּא׃ וְאִמְרוּ \textbf{אָמֵן}
+׃ \\
+(\kahal
+\begin{footnotesize}
+ יְהִ֤י
+ \source{תהלים קיג}%
+  שֵׁ֣ם יְיָ֣ מְבֹרָ֑ךְ מֵֽ֝עַתָּ֗ה וְעַד־עוֹלָֽם׃)\\
+ \end{footnotesize}
+יְהֵא שְׁלָמָא רַבָּא מִן שְׁמַיָּא וְחַיִּים עָלֵֽינוּ וְעַל כָּל יִשְׂרָאֵל׃ וְאִמְרוּ \textbf{אָמֵן}
+׃ \\
+(\kahal
+\begin{footnotesize}
+ עֶ֭זְרִי
+ \source{תהלים קכא}%
+  מֵעִ֣ם יְיָ֑ עֹ֝שֵׂ֗ה שָׁמַ֥יִם וָאָֽרֶץ׃) \\ 
+\end{footnotesize} 
+עֹשֶׂה שָׁלוֹם בִּמְרוֹמָיו הוּא יַעֲשֶׂה שָׁלוֹם עָלֵֽינוּ וְעַל כָּל יִשְׂרָאֵל׃ וְאִמְרוּ \textbf{אָמֵן}
+׃
+\end{kaddish}}
+
+\newcommand{\mournerskaddish}{\begin{kaddish}
+
+\instruction{קדיש יתום -- רק יתום אחד}
+ \firstword{יִתְגַּדַּל}
+  וְיִתְקַדַּשׁ שְׁמֵיהּ רַבָּא בְּעָלְֿמָא דִּבְרָא כִרְעוּתֵהּ 
+וְיַמְלִיךְ מַלְכוּתֵהּ בְּחַיֵּיכוֹן וּבְיוֹמֵיכוֹן וּבְחַיֵּי דְכָל בֵּית יִשְׂרָאֵל בַּעֲגָלָא וּבִזְמַן קָרִיב׃ וְאִמְרוּ אָמֵן׃
+\textbf{
+יְהֵא שְׁמֵיהּ רַבָּא מְבָרַךְ לְעָלַם וּלְעָלְֿמֵי עָלְֿמַיָּא
+}
+ יִתְבָּרַךְ וְיִשְׁתַּבַּח וְיִתְפָּאַר וְיִתְרוֹמַם וְיִתְנַשֵּׂא וְיִתְהַדַּר וְיִתְעַלֶּה וְיִתְהַלַּל שְׁמֵיהּ דְּקֻדְשָׁא 
+ \textbf{בְּרִיךְ הוּא}׃
+לְעֵֽלָּא מִכָּל בִּרְכָתָא וְשִׁירָתָא תֻּשְׁבְּֿחָתָא וְנֶחָמָתָא דַּאֲמִירָן בְּעָלְמָא׃ וְאִמְרוּ
+\textbf{אָמֵן}׃
+יְהֵא שְׁלָמָא רַבָּא מִן שְׁמַיָּא וְחַיִּים עָלֵֽינוּ וְעַל כָּל יִשְׂרָאֵל׃ וְאִמְרוּ
+\textbf{אָמֵן}׃
+עֹשֶׂה שָׁלוֹם בִּמְרוֹמָיו הוּא יַעֲשֶׂה שָּׁלוֹם עָלֵֽינוּ וְעַל כָּל יִשְׂרָאֵל׃ וְאִמְרוּ
+\textbf{אָמֵן}׃
+\end{kaddish}}
+
+\newcommand{\shatz}{\inlineinstruction{ש"ץ: }}
+\newcommand{\chazzan}{\inlineinstruction{חזן: }} %changed to be same as shatz for consistency
+%\newcommand{\chazzan}{\instruction{ש"ץ: }}
+\newcommand{\kahal}{\inlineinstruction{קהל: }}
+\newcommand{\shatzvkahal}{\inlineinstruction{קהל וש"ץ: }}
+\newcommand{\vshatzkahal}{\inlineinstruction{וש"ץ: קהל }} %for kedusha inside longtable
+%\newcommand{\chazzanvkahal}{\instruction{חזן וקהל: }}
+\newcommand{\chazzanvkahal}{\inlineinstruction{קהל וש"ץ: }}
+%\newcommand{\vkahalchazzan}{\instruction{וקהל: חזן }} %for kedusha inside longtable
+\newcommand{\vkahalchazzan}{\inlineinstruction{וש"ץ: קהל }}
+\newcommand{\shabbos}{\inlineinstruction{בשבת: }}
+
+\endinput
