@@ -1,40 +1,12 @@
 \documentclass[a4paper, twoside, openany, parskip=half, 12pt]{article}
-
-
-
-\usepackage[top=.7in,bottom=.7in, inner=.625in, outer=.625in, marginparsep=.1in, headsep=16pt]{geometry}
+\usepackage[top=.3in,bottom=.3in, inner=.625in, outer=.625in, marginparsep=.1in, headsep=16pt]{geometry}
 \setlength{\marginparwidth}{.5in}
 
-
-
 \usepackage{titlesec}
-
-\usepackage{draftwatermark}%confuses website for upsidedown printing
-	\SetWatermarkText{This text is upside down to confuse a computer}
-%	\SetWatermarkText{Draft}
-	\SetWatermarkScale{.1}%makes text size smaller
-	\SetWatermarkLightness{1}%makes text transparent
-	\SetWatermarkAngle{180}%rotates text upside down
-
-\usepackage{longtable}%lets tables go over a page break
-\usepackage{paracol}%parallel columns
-\usepackage{multirow}
-\usepackage{multicol}%multicolumn
-\usepackage[table]{xcolor}%colored tables
 \usepackage{mdframed}%frames and backgrounds
-\usepackage{wrapfig}%wrap text in minipage
-\usepackage{array}%for tables
-\usepackage{graphicx}%for adding jpegs
-\usepackage{afterpage}%for insterting blank pages
-\usepackage{marginnote}%doesn't work, want to use for sources
-\usepackage{hanging}%hanging paragraphs
 \usepackage{xunicode} 
 \usepackage{adforn}%for vignettes on the chapters and sections
-%more information: http://mirrors.concertpass.com/tex-archive/fonts/adforn/doc/fonts/adforn/adforn.pdf
 \usepackage{tabularx}
-\usepackage{libertine}
-%\usepackage{parskip} %Space between paragrphs
-
 
 \usepackage{polyglossia}
 \setdefaultlanguage{hebrew}
@@ -88,14 +60,6 @@
 \makeatother
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-%%%%%%%%%%%
-\newcommand\blankpage{%
- \null
- \thispagestyle{empty}%
- \addtocounter{page}{-1}%
- \newpage}
-
 %%%%This code indents the second line of the paragraph.
 \newlength{\saveparindent}\setlength{\saveparindent}{\parindent}
 \setlength{\parindent}{0pt}
@@ -105,7 +69,6 @@
     0pt \linewidth
     \saveparindent \dimexpr\linewidth-\saveparindent\relax
     0pt \linewidth}
-
 
 \makeatletter
 \patchcmd{\@xsect}{\ignorespaces}{\ignorespaces\everypar{\updateeverypar}}{}{}
@@ -122,24 +85,14 @@
 \setlength\parindent{0pt}
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 %%%%%%%This centers the last line of the paragraph
 \leftskip=0pt plus-.5fil
 \rightskip=0pt plus.5fil
 \parfillskip=0pt plus1fil
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
-%%%%%%%%%%%This is a new environment that prevents vspace before and after centering
-\newenvironment{nscenter}
- {\parskip=0pt\par\nopagebreak\centering}
- {\par\noindent\ignorespacesafterend}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \paragraphfont{\large}
 
-%\titleformat*{\paragraph}{\Large\bfseries}
 
 \begin{document}
 
@@ -151,20 +104,9 @@
 %\fontdimen2\font=\origiwspc% (original) inter word space
  \fontdimen3\font=0.1em% inter word stretch
 
-%\allsectionsfont{\centering}
-
 \setlength{\emergencystretch}{3em} %go over margin to avoid \sloppy
 
-
-
-
-
-\pagenumbering{gobble}
-
-
 \definecolor{sometimes}{gray}{0.87}
-
-\newcommand{\source}[1]{\noindent \begin{tiny} \marginpar{\textsf{(#1)}} \end{tiny}}
 
 \newcommand{\instruction}[1]{\noindent \begin{scriptsize} \textsf{#1} \end{scriptsize}}
 
@@ -175,13 +117,6 @@
 \rightskip=0pt plus.5fil
 \parfillskip=0pt plus1fil
 }{\end{mdframed}} %for some reason "sometimes" deletes the first character. Hit "ENTER" before putting text into the environment.
-
-\newenvironment{kaddish}[1]{\begin{center}\begin{footnotesize}
-		\leftskip=0pt plus-.5fil
-		\rightskip=0pt plus.5fil
-		\parfillskip=0pt plus1fil
-	}{\end{footnotesize}\end{center}}
-
 
 \setstretch{1.5} %works with setspace package for line spacing.
 
@@ -200,10 +135,12 @@
   \footnote{\instruction{עם אין כהן: }
   אֵין כַּאן כֹּהֵן, יַעֲמוֹד 
  \instruction{(פלוני בן פלוני)}
-  בִּמְקוׂם כֹּהֵן
-  \label{xx}} 
+  בִּמְקוׂם כֹּהֵן} 
 \instruction{(פלוני בן פלוני)}
  הַכֹּהֵן. בָּרוּךְ שֶׁנָּתַן תּוֹרָה לְעַמּוֹ יִשְׂרָאֵל בִּקְדֻשָּׁתוֹ:
+(%
+תּ֘וֹרַ֤ת יְיָ֣ תְּ֭מִימָה מְשִׁ֣יבַת נָ֑פֶשׁ עֵד֖וּת יְיָ֥ נֶֽ֝אֱמָנָ֗ה מַחְכִּ֥ימַת פֶּֽתִי׃ פִּקּ֘וּדֵ֤י יְיָ֣ יְ֭שָׁרִים מְשַׂמְּֿחֵי־לֵ֑ב מִצְוַ֖ת יְיָ֥ בָּ֝רָ֗ה מְאִירַ֥ת עֵינָֽיִם׃ יְיָ֗ עֹ֖ז לְעַמּ֣וֹ יִתֵּ֑ן יְיָ֓ יְבָרֵ֖ךְ אֶת־עַמּ֣וֹ בַֿשָּׁלֽוֹם׃ הָאֵל֮ תָּמִ֢ים דַּ֫רְכּ֥וֹ אִמְרַ֣ת יְיָ֣ צְרוּפָ֑ה מָגֵ֥ן ה֝֗וּא לְכֹ֤ל הַֽחוֹסִ֬ים־בּֽוֹ׃ 
+ )\\
  \instruction{כולם:}
 \textbf{וְאַתֶּם֙ הַדְּֿבֵקִ֔ים בַּֽיְ֖יָ אֱלֹֽהֵיכֶ֑ם חַיִּ֥ים־כֻּלְּֿכֶ֖ם הַיּֽוֹם׃} \\
 
@@ -274,7 +211,7 @@
  \instruction{ביומים נוראים}:
 וְיִכְתְּבֵהוּ וְיַחְתְּֿמֵֽהוּ לְחַיִים טוׂבִים בְּזֶה יוׂם הַדִין}\\
 וְיִשְׁלַח בְּרָכָה וְהַצְלָחָה בְּכָל מַעֲשֵׂה יָדֵיהֶם
-    עִם כָּל יִשְׂרָאֵל אֶחֵיהָם: וְנֹאמַר אָמֵן:
+  עִם כָּל יִשְׂרָאֵל אֶחֵיהָם: וְנֹאמַר אָמֵן:\\
 
 
 \section*{מי שברך ליולדת בן}
@@ -282,10 +219,10 @@
 אֲבוֹתֵֽינוּ אַבְרָהָם יִצְחָק וְיַעֲקֹב הוּא יְבָרֵךְ אֶת הָאִשָׁה הַיוֹלֶֽדֶת 
 \instruction{(פלונית בת פלונית)}
  עִם בְּנָהּ הַנוֹלָד לָהּ בְּמַזָל טוֹב [בַּעֲבוּר שֶׁבַּעֲלָהּ יִתֵּן
-  \instruction{(כמות התרומה)}
+   \instruction{(כמות התרומה)}
   בַּעֲדָם]
   בִּשְׂכַר זֶה\\
-  \begin{tabular}{>{\centering\arraybackslash}m{.58\textwidth} | >{\centering\arraybackslash}m{.4\textwidth}}
+  \begin{tabular}{>{\centering\arraybackslash}m{.5\textwidth} | >{\centering\arraybackslash}m{.4\textwidth}}
   \instruction{גרסת אשקנז:} & \instruction{גרסת פולין:}\\
 הַקָדוֹשׁ בָּרוּךְ הוּא יְהִי בְּעֶזְרָם וְיִשְׁמְֿרֵם וִיזַכֶּה אֶת הָאֵם לְגַדֵל אֶת בְּנָהּ בַּטוֹב וּבַנְּֿעִימִים וּלְהַדְרִיכוֹ בְּאֹֽרַח מִישׁוֹר לַתּוֹרָה לְחֻפָּה וּלְמַעֲשִׂים טוֹבִים.  וְנֹאמַר אָמֵן:
  & 
