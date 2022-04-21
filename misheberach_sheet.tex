@@ -1,129 +1,16 @@
 \documentclass[a4paper, twoside, openany, parskip=half, 12pt]{article}
-\usepackage[top=.3in,bottom=.3in, inner=.625in, outer=.625in, marginparsep=.1in, headsep=16pt]{geometry}
+\usepackage[top=.7in,bottom=.7in, inner=.625in, outer=.625in, marginparsep=.1in, headsep=16pt]{geometry}
 \setlength{\marginparwidth}{.5in}
 
-\usepackage{titlesec}
-\usepackage{mdframed}%frames and backgrounds
-\usepackage{xunicode} 
-\usepackage{adforn}%for vignettes on the chapters and sections
-\usepackage{tabularx}
-
-\usepackage{polyglossia}
-\setdefaultlanguage{hebrew}
-\setotherlanguage{english}
-\usepackage{fontspec}
-\setmainfont[
-	Path=fonts/, 
-	BoldItalicFont=ShlomoLightBold, 
-	BoldFont=ShlomoBold, 
-	ItalicFont=ShlomosemiStam
-	]{Shlomo}
-	\setsansfont{FreeSans}
-
-\renewcommand{\baselinestretch}{1.0}
-
-\usepackage{bidi}
-\makeatletter
-\makeatother
-
-
-\makeatletter
-\@addtoreset{footnote}{chapter}
-\makeatother
-
-\usepackage{setspace}%line spacing
-
-\usepackage{sectsty}
-\allsectionsfont{\centering}
-
-\makeatletter%This shortens the space before and after chapter headings.
-\def\@makechapterhead#1{
- %%%%\vspace*{50\p@}% %%% removed!
- {\parindent \z@ \raggedleft \normalfont \centering
- \ifnum \c@secnumdepth >\m@ne
- \LARGE\bfseries \@chapapp\space \thechapter
- \par\nobreak
- \vskip 20\p@
- \fi
- \interlinepenalty\@M
- \LARGE \bfseries #1\par\nobreak
- \vskip 20\p@
- }}
-\def\@makeschapterhead#1{%
- %%%%%\vspace*{50\p@}% %%% removed!
- {\parindent \z@ \raggedleft \centering
- \normalfont
- \interlinepenalty\@M
- \LARGE \bfseries #1\par\nobreak
- \vskip 20\p@
- }}
-\makeatother
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%This code indents the second line of the paragraph.
-\newlength{\saveparindent}\setlength{\saveparindent}{\parindent}
-\setlength{\parindent}{0pt}
-
-\newcommand{\updateeverypar}{%
-  \parshape 3
-    0pt \linewidth
-    \saveparindent \dimexpr\linewidth-\saveparindent\relax
-    0pt \linewidth}
-
-\makeatletter
-\patchcmd{\@xsect}{\ignorespaces}{\ignorespaces\everypar{\updateeverypar}}{}{}
-\makeatother
-\AtBeginDocument{\everypar{\updateeverypar}}
-%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%This helps with indentation
-\newlength\iiindent
-\setlength\iiindent{15pt}
-\newcommand\secindent{%
- \parshape 3 0pt \linewidth 0pt\dimexpr\linewidth-\iiindent\relax 0pt \linewidth
-}
-\setlength\parindent{0pt}
-%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%This centers the last line of the paragraph
-\leftskip=0pt plus-.5fil
-\rightskip=0pt plus.5fil
-\parfillskip=0pt plus1fil
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\paragraphfont{\large}
-
+\usepackage{siddur}
 
 \begin{document}
-
-\everypar{\secindent}
-\setcounter{secnumdepth}{-1}
-\setcounter{tocdepth}{1}
-\addtolength{\topskip}{0pt plus 10pt}
-
-%\fontdimen2\font=\origiwspc% (original) inter word space
- \fontdimen3\font=0.1em% inter word stretch
-
-\setlength{\emergencystretch}{3em} %go over margin to avoid \sloppy
-
-\definecolor{sometimes}{gray}{0.87}
-
-\newcommand{\instruction}[1]{\noindent \begin{scriptsize} \textsf{#1} \end{scriptsize}}
-
-\newcommand{\firstword}[1]{\begin{large}\textbf{#1}\end{large}} 
-
-\newenvironment{sometimes}[1]{\begin{mdframed}[linecolor=sometimes, backgroundcolor=sometimes]
-\leftskip=0pt plus-.5fil
-\rightskip=0pt plus.5fil
-\parfillskip=0pt plus1fil
-}{\end{mdframed}} %for some reason "sometimes" deletes the first character. Hit "ENTER" before putting text into the environment.
-
-\setstretch{1.5} %works with setspace package for line spacing.
-
+%remove page numbering imported from siddur.sty
+\pagenumbering{gobble}
 \section{\adforn{54} מדריך לגבאי \adforn{26}}
 
 \begin{tabular}{>{\centering\arraybackslash}m{.65\textwidth} | >{\centering\arraybackslash}m{.3\textwidth}}
-\instruction{ביום חול ובמינחה בשבת:} & \instruction{שבת שחרית:} \\
+\instruction{ביום חול ובמינחה בשבת:} & \instruction{שבת שחרית:}\\
  \firstword{וְתִגָּלֶה}
  וְתֵרָאֶה מַלְכוּתוֹ עָלֵֽינוּ בִּזְמַן קָרוֹב וְיָחֹן פְּלֵטָתֵֽנוּ וּפְלֵטַת עַמּוֹ בֵּית יִשְׂרָאֵל לְחֵן וּלְחֶֽסֶד וּלְרַחֲמִים וּלְרָצוֹן: וְנֹאמַר אָמֵן: 
  &
@@ -213,6 +100,7 @@
 וְיִשְׁלַח בְּרָכָה וְהַצְלָחָה בְּכָל מַעֲשֵׂה יָדֵיהֶם
   עִם כָּל יִשְׂרָאֵל אֶחֵיהָם: וְנֹאמַר אָמֵן:\\
 
+\clearpage
 
 \section*{מי שברך ליולדת בן}
 \firstword{מִי שֶׁבֵּרַךְ }
@@ -251,7 +139,7 @@
 \vfill
 
 Wolf Aaron
-\includegraphics[scale=.5]{cc.png}\\
+\includegraphics[scale=.5]{images/cc.png}\\
 https://github.com/wolf-math/gabbai
 %This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License. 
 \end{document}

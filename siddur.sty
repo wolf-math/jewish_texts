@@ -2,72 +2,45 @@
 \ProvidesPackage{siddur}
   [2019/12/121 v0.01 LaTeX package for siddur]
 
-\usepackage{fancyhdr}
-	\pagestyle{fancy}
-	\fancyhf{}
-	\fancyhead[RE]{\footnotesize\thepage}
-	\fancyhead[LO]{\footnotesize\thepage}
-	\fancyhead[C]{\footnotesize\leftmark}
-	\fancypagestyle{plain}{%
-		 \fancyhf{}%
-		\fancyhead[RE]{\footnotesize\thepage}
-		\fancyhead[LO]{\footnotesize\thepage}
-		%\fancyhead[C]{\footnotesize\leftmark}
-		% \renewcommand{\headrulewidth}{0.4pt}% Line at the header 
-		
-	}
-	
-\RequirePackage{longtable}				%lets tables go over a page break
-\RequirePackage{paracol}					%parallel columns
-\RequirePackage{multirow}
-\RequirePackage{multicol}				%multicolumn
-\RequirePackage[table]{xcolor}			%colored tables
-\RequirePackage{pbox}					%paragraph box 
-\RequirePackage{wrapfig}					%wraps text around pbox
-%\RequirePackage{mdframed}				%frames and backgrounds
-\RequirePackage{array}					%for tables
-\RequirePackage{graphicx}				%for adding jpegs
-\RequirePackage{afterpage}				%for insterting blank pages
-\RequirePackage{morefloats}
-\RequirePackage{marginfix}
-\RequirePackage{xunicode} 				%UTF-8
-\RequirePackage{adforn}					%for vignettes on the chapters and sections
+\usepackage{longtable}				%lets tables go over a page break
+\usepackage{paracol}				%parallel columns
+\usepackage{multirow}
+\usepackage{multicol}				%multicolumn
+\usepackage[table]{xcolor}			%colored tables
+\usepackage{pbox}					%paragraph box 
+\usepackage{wrapfig}				%wraps text around pbox
+\usepackage{mdframed}				%frames and backgrounds
+\usepackage{array}					%for tables
+\usepackage{graphicx}				%for adding jpegs
+\usepackage{afterpage}				%for insterting blank pages
+\usepackage{marginnote}				%doesn't work with bidi, want to use for sources instead of marginpar
+\usepackage{morefloats}
+\usepackage{marginfix}
+\usepackage{xunicode} 				%UTF-8
+\usepackage{adforn}					%for vignettes on the chapters and sections
 									%more information: http://mirrors.concertpass.com/tex-archive/fonts/adforn/doc/fonts/adforn/adforn.pdf
-\RequirePackage{tikz}
+\usepackage{amssymb}				%symbols
+\usepackage{tikz}
 \usetikzlibrary{decorations.text}
-%\RequirePackage{tabularx}
-%\RequirePackage{tabulary}
-\RequirePackage{ragged2e}				%text justification
-\RequirePackage{libertine}
-\RequirePackage{setspace}				%line spacing
-\RequirePackage{sectsty}
-\RequirePackage[bottom]{footmisc}		%keeps footnotes at the bottom of the page. Doesn't always work.
-\RequirePackage{scrextend}
-\RequirePackage[all]{nowidow}
+\usepackage{tabularx}
+\usepackage{tabulary}
+\usepackage{ragged2e}				%text justification
+\usepackage{libertine}
+\usepackage{setspace}				%line spacing
+\usepackage{sectsty}
+\usepackage{scrextend}
+\usepackage[all]{nowidow}
 \allsectionsfont{\centering}
 
-\RequirePackage{titlesec}
+\usepackage{titlesec}
 \titlespacing*{\section}{0pt}{-0.1em}{-0.1em}
 %\titlespacing*{\chapter}{0pt}{-50pt}{0.1em}
-\titleformat
-	{\chapter} % command
-	[display] % shape
-	{\bfseries\Large\itshape} % format
-	{Story No. \ \thechapter} % label
-	{0.5ex} % sep
-	{
-    	\adforn{47}
-	} % before-code
-	[
-		\adforn{19}
-	] % after-code
 
 
-% RTL typing
-\RequirePackage{polyglossia}
+\usepackage{polyglossia}
 \setdefaultlanguage[numerals=Hebrew]{hebrew}
 \setotherlanguage{english}
-
+\usepackage{fontspec}
 \setmainfont[
 	Path=fonts/, 
 	BoldItalicFont=ShlomoLightBold, 
@@ -75,15 +48,16 @@
 	ItalicFont=ShlomosemiStam
 	]{Shlomo}
 	\setsansfont{FreeSans}
-
-\RequirePackage{bidi}
+\usepackage{bidi}
 \makeatletter
 \makeatother
+
 
 \makeatletter
 \@addtoreset{footnote}{chapter}
 \makeatother
 
+						%This shortens the space before and after chapter headings.
 \makeatletter
 \def\@makechapterhead#1{%
   \vspace*{-30\p@}
@@ -118,20 +92,18 @@
 
 %%%%%__________--Helps with indentation--__________%%%%%
 \newlength\iiindent
-\setlength\iiindent{0pt}
+\setlength\iiindent{15pt}
 \newcommand\secindent{%
  \parshape 3 0pt \linewidth 0pt\dimexpr\linewidth-\iiindent\relax 0pt \linewidth
 }
-\setlength\parindent{10pt}
+\setlength\parindent{0pt}
 
 
 
 %%%%%__________-Center last line of paragraph-__________%%%%%
-\newcommand{\centerlast}{
 \leftskip=0pt plus-.5fil
 \rightskip=0pt plus.5fil
 \parfillskip=0pt plus1fil
-}
 
 
 %%%%%_____-removes vspace before and after centering-_____%%%%%
@@ -147,7 +119,6 @@
  {\parskip=0pt\par\nopagebreak\longtable}
  {\par\noindent\ignorespacesafterend}
 
-\paragraphfont{\large}
 
 \pagenumbering{roman}
 %\everypar{\secindent}
@@ -158,13 +129,14 @@
 %\fontdimen2\font=\origiwspc					% (original) inter word space
 \fontdimen3\font=0.1em							% inter word stretch
 
-\setlength{\emergencystretch}{3em} 				%stretch length between words
+\setlength{\emergencystretch}{3em} 			%go over margin to avoid \sloppy
 
 \renewcommand{\footnoterule}{%
   \kern -3pt
   \hrule width \textwidth height 1pt
   \kern 2pt
 }
+
 
 \newcommand{\sepline}{\vspace{-.5\baselineskip}\rule[.7ex]{1.3in}{1pt}\vspace{-.5\baselineskip}}
 
@@ -176,14 +148,21 @@
         \marginpar{\raggedright\tiny \textsf{#1}}}%
     }
 
+%\newcommand{\source}[1]{
+%	\marginpar{
+%	\begin{tiny}
+%		\textsf{#1}
+%
+%	\end{tiny}}
+%	}	
+
 \newcommand{\mdsource}[1]{
 	\begin{tiny}
 		\textsf{(#1)}
 	\end{tiny}
 	}
 
-\newcommand{\instruction}[1]{\begin{center}\begin{scriptsize} \textsf{#1} \end{scriptsize}\end{center}}
-\newcommand{\inlineinstruction}[1]{\begin{scriptsize} \textsf{#1} \end{scriptsize}}
+\newcommand{\instruction}[1]{\begin{scriptsize} \textsf{#1} \end{scriptsize}}
 
 \newenvironment{instructionpar}
 	{\begin{scriptsize}\begin{textsf}}
@@ -195,19 +174,16 @@
 \newcommand{\firstword}[1]{\begin{large}\textbf{#1}\end{large}} 
 \newcommand{\ssubsection}[1]{\firstword{#1}}
 
-\newenvironment{sometimes}[1]{\vspace{-.5\baselineskip}\rule[-0.5ex]{3in}{1pt}\\ \begin{small}}{\end{small}\rule[3ex]{3in}{1pt}
-\vspace{-.75\baselineskip}
-}
+\mdfsetup{skipabove=4pt,skipbelow=-4pt}
 
-\newenvironment{narrow}{
-	\begin{quote}
-		\centerlast
-	}{
-	\end{quote}}
+\definecolor{sometimes}{gray}{0.87}
+\newenvironment{sometimes}[1]{\vspace{-.5\baselineskip}\rule[-0.5ex]{3in}{1pt}\\ \begin{small}}{\end{small}\rule[3ex]{3in}{1pt}\vspace{-.5\baselineskip}}
 
 \newenvironment{kaddish}[1]{
 	\begin{footnotesize}
-		\centerlast
+		\leftskip=0pt plus-.5fil
+		\rightskip=0pt plus.5fil
+		\parfillskip=0pt plus1fil
 	}{
 	
 	\end{footnotesize}}
@@ -266,7 +242,7 @@
 
 \newcommand{\mournerskaddish}{\begin{kaddish}
 
-\instruction{קדיש יתום -- רק יתום אחד}
+\instruction{קדיש יתום -- רק יתום אחד}\\
  \firstword{יִתְגַּדַּל}
   וְיִתְקַדַּשׁ שְׁמֵיהּ רַבָּא בְּעָלְֿמָא דִּבְרָא כִרְעוּתֵהּ 
 וְיַמְלִיךְ מַלְכוּתֵהּ בְּחַיֵּיכוֹן וּבְיוֹמֵיכוֹן וּבְחַיֵּי דְכָל בֵּית יִשְׂרָאֵל בַּעֲגָלָא וּבִזְמַן קָרִיב׃ וְאִמְרוּ אָמֵן׃
@@ -283,16 +259,14 @@
 \textbf{אָמֵן}׃
 \end{kaddish}}
 
-\newcommand{\shatz}{\inlineinstruction{ש"ץ: }}
-\newcommand{\chazzan}{\inlineinstruction{חזן: }} %changed to be same as shatz for consistency
-%\newcommand{\chazzan}{\instruction{ש"ץ: }}
-\newcommand{\kahal}{\inlineinstruction{קהל: }}
-\newcommand{\shatzvkahal}{\inlineinstruction{קהל וש"ץ: }}
-\newcommand{\vshatzkahal}{\inlineinstruction{וש"ץ: קהל }} %for kedusha inside longtable
+\newcommand{\shatz}{\instruction{ש"ץ: }}
+%\newcommand{\chazzan}{\instruction{חזן: }} %changed to be same as shatz for consistency
+\newcommand{\chazzan}{\instruction{ש"ץ: }}
+\newcommand{\kahal}{\instruction{קהל: }}
+\newcommand{\shatzvkahal}{\instruction{קהל וש"ץ: }}
+\newcommand{\vshatzkahal}{\instruction{וש"ץ: קהל }} %for kedusha inside longtable
 %\newcommand{\chazzanvkahal}{\instruction{חזן וקהל: }}
-\newcommand{\chazzanvkahal}{\inlineinstruction{קהל וש"ץ: }}
+\newcommand{\chazzanvkahal}{\instruction{קהל וש"ץ: }}
 %\newcommand{\vkahalchazzan}{\instruction{וקהל: חזן }} %for kedusha inside longtable
-\newcommand{\vkahalchazzan}{\inlineinstruction{וש"ץ: קהל }}
-\newcommand{\shabbos}{\inlineinstruction{בשבת: }}
-
-\endinput
+\newcommand{\vkahalchazzan}{\instruction{וש"ץ: קהל }}
+\newcommand{\shabbos}{\instruction{בשבת: }}
