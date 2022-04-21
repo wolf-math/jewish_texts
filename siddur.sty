@@ -2,31 +2,31 @@
 \ProvidesPackage{siddur}
   [2019/12/121 v0.01 LaTeX package for siddur]
 
-\usepackage{longtable}				%lets tables go over a page break
-\usepackage{paracol}				%parallel columns
+\usepackage{longtable} %lets tables go over a page break
+\usepackage{paracol} %parallel columns
 \usepackage{multirow}
-\usepackage{multicol}				%multicolumn
-\usepackage[table]{xcolor}			%colored tables
-\usepackage{pbox}					%paragraph box 
-\usepackage{wrapfig}				%wraps text around pbox
-\usepackage{mdframed}				%frames and backgrounds
-\usepackage{array}					%for tables
-\usepackage{graphicx}				%for adding jpegs
-\usepackage{afterpage}				%for insterting blank pages
-\usepackage{marginnote}				%doesn't work with bidi, want to use for sources instead of marginpar
+\usepackage{multicol} %multicolumn
+\usepackage[table]{xcolor} %colored tables
+\usepackage{pbox} %paragraph box 
+\usepackage{wrapfig} %wraps text around pbox
+\usepackage{mdframed} %frames and backgrounds
+\usepackage{array} %for tables
+\usepackage{graphicx} %for adding jpegs
+\usepackage{afterpage} %for insterting blank pages
+\usepackage{marginnote} %doesn't work with bidi, want to use for sources instead of marginpar
 \usepackage{morefloats}
 \usepackage{marginfix}
-\usepackage{xunicode} 				%UTF-8
-\usepackage{adforn}					%for vignettes on the chapters and sections
-									%more information: http://mirrors.concertpass.com/tex-archive/fonts/adforn/doc/fonts/adforn/adforn.pdf
-\usepackage{amssymb}				%symbols
+\usepackage{xunicode} %UTF-8
+\usepackage{adforn} %for vignettes on the chapters and sections
+%more information: http://mirrors.concertpass.com/tex-archive/fonts/adforn/doc/fonts/adforn/adforn.pdf
+\usepackage{amssymb} %symbols
 \usepackage{tikz}
 \usetikzlibrary{decorations.text}
 \usepackage{tabularx}
 \usepackage{tabulary}
-\usepackage{ragged2e}				%text justification
+\usepackage{ragged2e} %text justification
 \usepackage{libertine}
-\usepackage{setspace}				%line spacing
+\usepackage{setspace} %line spacing
 \usepackage{sectsty}
 \usepackage{scrextend}
 \usepackage[all]{nowidow}
@@ -35,7 +35,6 @@
 \usepackage{titlesec}
 \titlespacing*{\section}{0pt}{-0.1em}{-0.1em}
 %\titlespacing*{\chapter}{0pt}{-50pt}{0.1em}
-
 
 \usepackage{polyglossia}
 \setdefaultlanguage[numerals=Hebrew]{hebrew}
@@ -52,12 +51,11 @@
 \makeatletter
 \makeatother
 
-
 \makeatletter
 \@addtoreset{footnote}{chapter}
 \makeatother
 
-						%This shortens the space before and after chapter headings.
+% shorten the space before and after chapter headings.
 \makeatletter
 \def\@makechapterhead#1{%
   \vspace*{-30\p@}
@@ -65,23 +63,17 @@
     \ifnum \c@secnumdepth >\m@ne
         \LARGE\bfseries \@chapapp\space \thechapter
         \par\nobreak
-  %%%%  \vskip 20\p@
     \fi
     \interlinepenalty\@M
     \LARGE \bfseries #1\par\nobreak
-  %%%%  \vskip 40\p@% %%% removed!
   }}
 \def\@makeschapterhead#1{%
-  %%%%%\vspace*{50\p@}% %%% removed!
   {\parindent \z@ \raggedright
     \normalfont
     \interlinepenalty\@M
     \LARGE \bfseries  #1\par\nobreak
-  %%%%%  \vskip 40\p@
   }}
 \makeatother
-%%%%%%__________----------__________%%%%%
-
 
 %%%%%__________-For adding blank pages-__________%%%%%
 \newcommand\blankpage{%
@@ -98,13 +90,10 @@
 }
 \setlength\parindent{0pt}
 
-
-
 %%%%%__________-Center last line of paragraph-__________%%%%%
 \leftskip=0pt plus-.5fil
 \rightskip=0pt plus.5fil
 \parfillskip=0pt plus1fil
-
 
 %%%%%_____-removes vspace before and after centering-_____%%%%%
 \newenvironment{nscenter}
@@ -119,24 +108,22 @@
  {\parskip=0pt\par\nopagebreak\longtable}
  {\par\noindent\ignorespacesafterend}
 
-
 \pagenumbering{roman}
 %\everypar{\secindent}
 \setcounter{secnumdepth}{-1}
 \setcounter{tocdepth}{1}
 %\addtolength{\topskip}{0pt plus 10pt}
 
-%\fontdimen2\font=\origiwspc					% (original) inter word space
-\fontdimen3\font=0.1em							% inter word stretch
+%\fontdimen2\font=\origiwspc % (original) inter word space
+\fontdimen3\font=0.1em % inter word stretch
 
-\setlength{\emergencystretch}{3em} 			%go over margin to avoid \sloppy
+\setlength{\emergencystretch}{3em} %go over margin to avoid \sloppy
 
 \renewcommand{\footnoterule}{%
   \kern -3pt
   \hrule width \textwidth height 1pt
   \kern 2pt
 }
-
 
 \newcommand{\sepline}{\vspace{-.5\baselineskip}\rule[.7ex]{1.3in}{1pt}\vspace{-.5\baselineskip}}
 
@@ -147,14 +134,6 @@
         \marginpar{\raggedleft\tiny \textsf{#1}}}{%
         \marginpar{\raggedright\tiny \textsf{#1}}}%
     }
-
-%\newcommand{\source}[1]{
-%	\marginpar{
-%	\begin{tiny}
-%		\textsf{#1}
-%
-%	\end{tiny}}
-%	}	
 
 \newcommand{\mdsource}[1]{
 	\begin{tiny}
