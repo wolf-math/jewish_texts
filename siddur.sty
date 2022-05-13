@@ -156,7 +156,16 @@
 \mdfsetup{skipabove=4pt,skipbelow=-4pt}
 
 \definecolor{sometimes}{gray}{0.87}
-\newenvironment{sometimes}[1]{\vspace{-.5\baselineskip}\rule[-0.5ex]{3in}{1pt}\\ \begin{small}}{\end{small}\rule[3ex]{3in}{1pt}\vspace{-.5\baselineskip}}
+\newenvironment{sometimes}[1]{%
+  \vspace{-.5\baselineskip}
+  %\rule[-0.5ex]{3in}{1pt}\\ 
+  \begin{small}
+}
+{
+  \end{small}
+  %\rule[3ex]{3in}{1pt}
+  \vspace{-.5\baselineskip}
+}
 
 \newenvironment{kaddish}[1]{
 	\begin{footnotesize}
